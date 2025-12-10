@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>i plus 1 — Feats of Engineering</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #050505;
+      --accent: #050505;
+      --muted: #999;
+      --border: #111;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Global layout */
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Header */
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-lockup {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 3px solid var(--fg);
+      border-top-color: transparent;
+      border-right-color: transparent;
+      transform: rotate(-35deg);
+      position: relative;
+    }
+
+    .logo-mark::after {
+      content: "01";
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+    }
+
+    .logo-text-main {
+      font-weight: 700;
+      font-size: 20px;
+      text-transform: lowercase;
+      letter-spacing: 0.18em;
+    }
+
+    .logo-text-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--fg);
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--fg);
+      transition: width 0.22s ease-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--fg);
+      opacity: 0.9;
+    }
+
+    /* Hero */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 3fr);
+      gap: 40px;
+      align-items: flex-start;
+      margin-bottom: 56px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: clamp(34px, 4vw, 42px);
+      line-height: 1.1;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      display: inline-block;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      max-width: 380px;
+      line-height: 1.5;
+      color: #111;
+      margin-bottom: 26px;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .meta-pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 6px 10px 4px;
+      border: 1px solid var(--fg);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-pill::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid var(--fg);
+      border-top-color: transparent;
+      border-right-color: transparent;
+      transform: rotate(-40deg);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 11px 18px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--fg);
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .btn-primary {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      border-style: dashed;
+    }
+
+    .hero-caption {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    /* Hero right — abstract circuit composition */
+
+    .hero-right {
+      position: relative;
+      min-height: 260px;
+      border-left: 1px solid var(--border);
+      padding-left: 26px;
+    }
+
+    .hero-tag-block {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 18px;
+    }
+
+    .hero-tag-block strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: 0.18em;
+      margin-top: 4px;
+    }
+
+    .circuit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px 26px;
+      margin-top: 10px;
+    }
+
+    .node {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--fg);
+      position: relative;
+    }
+
+    .node::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      width: 32px;
+      height: 1px;
+      background: var(--fg);
+      transform-origin: left center;
+    }
+
+    .node:nth-child(2)::after {
+      transform: scaleX(0.6);
+    }
+
+    .node:nth-child(3)::after {
+      transform: scaleX(0.9) rotate(12deg);
+    }
+
+    .node:nth-child(5)::after {
+      transform: scaleX(0.8) rotate(-18deg);
+    }
+
+    .node:nth-child(7)::after {
+      transform: scaleX(0.5);
+    }
+
+    .node:nth-child(10)::after {
+      transform: scaleX(1.2) rotate(7deg);
+    }
+
+    .node:nth-child(12)::after {
+      transform: scaleX(0.7) rotate(-10deg);
+    }
+
+    .circuit-vertical {
+      position: absolute;
+      right: 4%;
+      top: 40px;
+      width: 1px;
+      height: 170px;
+      background: var(--fg);
+    }
+
+    .circuit-vertical::after {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 1px solid var(--fg);
+    }
+
+    .hero-square {
+      position: absolute;
+      right: 17%;
+      top: -10px;
+      width: 80px;
+      height: 80px;
+      border: 1px solid var(--fg);
+    }
+
+    .hero-glyph {
+      position: absolute;
+      bottom: -8px;
+      left: -10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 18px;
+      border: 8px solid var(--fg);
+      border-top-color: transparent;
+      border-left-color: transparent;
+      transform: rotate(40deg);
+    }
+
+    .hero-glyph::after {
+      content: "05";
+      position: absolute;
+      right: -22px;
+      bottom: -10px;
+      font-size: 11px;
+      font-weight: 700;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      letter-spacing: 0.12em;
+    }
+
+    /* Sections */
+
+    .stripe {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0 14px;
+      margin-bottom: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .stripe-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .stripe-rule {
+      height: 1px;
+      width: 70px;
+      background: var(--fg);
+    }
+
+    .stripe-barcode {
+      display: flex;
+      gap: 3px;
+      height: 20px;
+    }
+
+    .stripe-barcode span {
+      flex: 0 0 auto;
+      background: var(--fg);
+    }
+
+    .stripe-barcode span:nth-child(1) {
+      width: 2px;
+    }
+
+    .stripe-barcode span:nth-child(2) {
+      width: 4px;
+    }
+
+    .stripe-barcode span:nth-child(3) {
+      width: 1px;
+    }
+
+    .stripe-barcode span:nth-child(4) {
+      width: 5px;
+    }
+
+    .stripe-barcode span:nth-child(5) {
+      width: 2px;
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 3fr);
+      gap: 34px;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 10px;
+    }
+
+    .section-body {
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 420px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      font-size: 12px;
+    }
+
+    .service-card {
+      border: 1px solid var(--border);
+      padding: 14px 14px 16px;
+      position: relative;
+      overflow: hidden;
+      min-height: 86px;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 999px;
+      border: 1px solid var(--fg);
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+
+    .service-index {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 8px;
+      color: var(--muted);
+    }
+
+    .service-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      letter-spacing: 0.12em;
+    }
+
+    .service-body {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* Process strip */
+
+    .process-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 48px;
+    }
+
+    .process-step {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .process-step::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 12px;
+      height: 1px;
+      background: var(--fg);
+    }
+
+    /* Contact */
+
+    .contact {
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 3fr);
+      gap: 26px;
+      align-items: flex-start;
+    }
+
+    .contact-heading {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+    }
+
+    .contact-body {
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 380px;
+      margin-bottom: 18px;
+    }
+
+    .contact-meta {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .contact-grid {
+      font-size: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 24px;
+    }
+
+    .contact-grid span {
+      display: block;
+    }
+
+    .contact-grid span.label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .contact-grid a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid var(--fg);
+      padding-bottom: 2px;
+    }
+
+    footer {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 20px 20px 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-code {
+      display: flex;
+      gap: 4px;
+    }
+
+    .footer-code span {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      border: 1px solid var(--fg);
+    }
+
+    /* Background micro-elements */
+
+    .bg-dots {
+      position: absolute;
+      left: -40px;
+      bottom: 80px;
+      display: grid;
+      grid-template-columns: repeat(6, 6px);
+      grid-auto-rows: 6px;
+      gap: 6px;
+      opacity: 0.18;
+    }
+
+    .bg-dots span {
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: var(--fg);
+    }
+
+    .bg-lines-top {
+      position: absolute;
+      top: 18px;
+      right: 16%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      opacity: 0.7;
+    }
+
+    .bg-lines-top span {
+      height: 2px;
+      background: var(--fg);
+    }
+
+    .bg-lines-top span:nth-child(1) {
+      width: 40px;
+    }
+
+    .bg-lines-top span:nth-child(2) {
+      width: 28px;
+    }
+
+    .bg-lines-top span:nth-child(3) {
+      width: 16px;
+    }
+
+    /* Responsiveness */
+
+    @media (max-width: 880px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-right {
+        border-left: none;
+        padding-left: 0;
+        margin-top: 6px;
+      }
+
+      .hero-square {
+        display: none;
+      }
+
+      .hero-glyph {
+        left: auto;
+        right: 0;
+      }
+
+      .section,
+      .contact {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .services-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .stripe {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .page {
+        padding-inline: 18px;
+      }
+
+      footer {
+        flex-direction: column;
+        padding-inline: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Micro-elements -->
+    <div class="bg-dots">
+      <!-- 5 x 6 grid -->
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="bg-lines-top">
+      <span></span><span></span><span></span>
+    </div>
+
+    <header>
+      <div class="logo-lockup">
+        <div class="logo-mark"></div>
+        <div>
+          <div class="logo-text-main">i plus 1</div>
+          <div class="logo-text-sub">electronics design house</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+        <div class="nav-dot"></div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="hero-kicker">Sydney / Hardware-first</div>
+          <h1 class="hero-title">
+            <span>Feats of</span><br />
+            <span>Engineering.</span>
+          </h1>
+          <p class="hero-subtitle">
+            i plus 1 partners with teams to architect, prototype and ship
+            electronics that behave like magic and ship like product.
+          </p>
+
+          <div class="hero-meta-row">
+            <div class="meta-pill">Embedded Systems</div>
+            <div class="meta-pill">IoT &amp; Sensing</div>
+            <div class="meta-pill">DFM-Ready Layouts</div>
+          </div>
+
+          <div class="hero-cta-row">
+            <button class="btn-primary">Start a project</button>
+            <button class="btn-ghost">Download capability sheet</button>
+          </div>
+
+          <div class="hero-caption">
+            Concept → Schematics → Layout → Firmware → EVT / DVT.
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-tag-block">
+            <span>Signal-Driven</span>
+            <strong>Design Systems</strong>
+          </div>
+
+          <div class="circuit-grid" id="work">
+            <!-- 12 nodes -->
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+            <div class="node"></div>
+          </div>
+
+          <div class="circuit-vertical"></div>
+          <div class="hero-square"></div>
+          <div class="hero-glyph"></div>
+        </div>
+      </section>
+
+      <div class="stripe">
+        <div class="stripe-block">
+          <div class="stripe-rule"></div>
+          <span>End-to-end electronics for ambitious teams</span>
+        </div>
+        <div class="stripe-block">
+          <span>Prototron-grade rapid iteration</span>
+        </div>
+        <div class="stripe-barcode">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <section class="section" id="services">
+        <div>
+          <div class="section-label">Practise Areas</div>
+          <h2 class="section-title">Feats of engineering, on demand.</h2>
+          <p class="section-body">
+            From napkin sketch to production-ready PCB, i plus 1 plugs into your
+            team as an external electronics brain. We specialise in low-power
+            sensing, connected devices and tightly integrated mechanical +
+            electrical systems.
+          </p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-index">01 / Core</div>
+            <div class="service-title">Architecture &amp; schematics</div>
+            <p class="service-body">
+              Requirements capture, power budgeting, silicon selection and
+              robust mixed-signal schematics built for review and reuse.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-index">02 / Layout</div>
+            <div class="service-title">PCB &amp; DFM</div>
+            <p class="service-body">
+              High-density digital, RF and precision analog layouts. Stackups,
+              constraints and documentation tuned for your CM and test strategy.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-index">03 / Firmware</div>
+            <div class="service-title">embedded software</div>
+            <p class="service-body">
+              Bare-metal and RTOS firmware for connected devices, power-aware
+              state machines and OTA-ready architectures.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-index">04 / Lab</div>
+            <div class="service-title">prototyping &amp; validation</div>
+            <p class="service-body">
+              Bring-up, instrumentation and test rigs that close the loop
+              between theory, simulation and the very real, very noisy world.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="process">
+        <div class="section-label">Process</div>
+        <div class="section-title">Mind-expanding workshops. Concrete output.</div>
+        <p class="section-body" style="margin-bottom:20px; max-width:520px;">
+          Every engagement starts with a focused technical workshop. We map the
+          problem space, draw boundary conditions and leave with artefacts you
+          can circulate internally: block diagrams, risk register, first-pass
+          architecture and a delivery schedule.
+        </p>
+
+        <div class="process-row">
+          <div class="process-step">01 / Diagnostic workshop</div>
+          <div class="process-step">02 / Architecture + proof-of-concept</div>
+          <div class="process-step">03 / Design &amp; layout sprints</div>
+          <div class="process-step">04 / Bring-up, test &amp; handover</div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div>
+          <div class="contact-heading">Engage i plus 1</div>
+          <p class="contact-body">
+            Have a device that needs to exist in the world? Send a short brief
+            with your constraints, timelines and any prior work. We will respond
+            with a suggested engagement format within two business days.
+          </p>
+          <button class="btn-primary">Email project brief</button>
+        </div>
+        <div>
+          <div class="contact-meta">Signal in / out</div>
+          <div class="contact-grid">
+            <div>
+              <span class="label">Email</span>
+              <a href="mailto:hello@iplus1.studio">hello@iplus1.studio</a>
+            </div>
+            <div>
+              <span class="label">Location</span>
+              <span>Sydney, Australia</span>
+            </div>
+            <div>
+              <span class="label">Focus</span>
+              <span>IoT, sensing, instrumentation</span>
+            </div>
+            <div>
+              <span class="label">Engagements</span>
+              <span>Project &amp; retained</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div>© <span id="year">2025</span> i plus 1 / Feats of Engineering</div>
+    <div class="footer-code">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </footer>
+
+  <script>
+    // keep year current
+    document.getElementById("year").textContent =
+      new Date().getFullYear().toString();
+  </script>
+</body>
+</html>
