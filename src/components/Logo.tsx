@@ -1,0 +1,21 @@
+
+import React from 'react';
+import './Logo.css';
+
+const Logo = ({ size = 40 }: { size?: number }) => {
+  return (
+    <div className="logo-wrapper" style={{ width: size, height: size }}>
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="transparent"/>
+        {/* Simplified recreation of the provided logo for vector scaling */}
+        <circle cx="35" cy="22" r="8" fill="#ffcc00" />
+        <rect x="25" y="38" width="10" height="8" fill="#ffcc00" />
+        <path d="M35 38H45V68H25V78H55V38H35Z" fill="#ffcc00" />
+        <rect x="63" y="30" width="24" height="8" fill="#ffcc00" />
+        <rect x="71" y="22" width="8" height="24" fill="#ffcc00" />
+      </svg>
+    </div>
+  );
+};
+
+export default Logo;

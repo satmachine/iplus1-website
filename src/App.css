@@ -1,0 +1,48 @@
+
+:root {
+  --primary-yellow: #ffcc00;
+  --bg-black: #000000;
+  --surface-gray: #111111;
+  --text-dim: #a0a0a0;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-black);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
