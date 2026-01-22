@@ -4,6 +4,7 @@ import Navbar from './features/navigation/Navbar';
 import Hero from './features/hero/Hero';
 import TrustedBy from './features/trust/TrustedClients';
 import Services from './features/services/Services';
+import SupplyChain from './features/supply-chain/SupplyChain';
 import Booking from './features/booking/Booking';
 import Footer from './features/footer/Footer';
 import './App.css';
@@ -30,6 +31,7 @@ function App() {
         <section id="services">
           <Services />
         </section>
+        <SupplyChain />
         <Booking />
       </main>
       <Footer />

@@ -5,34 +5,34 @@ import './Services.css';
 
 const services = [
   {
-    icon: <Printer size={32} />,
-    title: "Rapid Prototyping & 3D Printing",
-    description: "Iterative physical models to test form, fit, and function using state-of-the-art SLA and FDM technology."
-  },
-  {
     icon: <Layers size={32} />,
     title: "PCB Design & Development",
-    description: "Multi-layer schematic design, layout optimization, and prototyping for robust embedded systems."
-  },
-  {
-    icon: <Activity size={32} />,
-    title: "CNC Machining",
-    description: "Precision subtractive manufacturing for high-performance mechanical parts and enclosures."
+    description: "Multi-layer schematic design, layout optimization, and prototyping for robust embedded systems. We design with manufacturing in mind."
   },
   {
     icon: <Zap size={32} />,
     title: "Firmware Development",
-    description: "Low-level C/C++ development for microcontrollers ensuring stability and energy efficiency."
+    description: "Low-level C/C++ development for microcontrollers ensuring stability and energy efficiency. Production-grade code from day one."
+  },
+  {
+    icon: <Printer size={32} />,
+    title: "Rapid Prototyping & 3D Printing",
+    description: "In-house SLA and FDM fabrication for fast iteration. Same-day feedback loops for your hardware validation."
+  },
+  {
+    icon: <Activity size={32} />,
+    title: "Workshop & CNC",
+    description: "In-house precision machining, laser cutting, welding, and milling. From conceptual prototypes to functional assemblies."
+  },
+  {
+    icon: <Factory size={32} />,
+    title: "Manufacturing Partnership & DFM",
+    description: "We don't hand off to unknown factories. Trusted ISO9001 partners in Australia, China, and Taiwan. Full supply chain visibility from DFM through to warehouse."
   },
   {
     icon: <Smartphone size={32} />,
     title: "App Development",
     description: "Native and cross-platform mobile apps for iOS and Android to control and monitor your hardware."
-  },
-  {
-    icon: <Factory size={32} />,
-    title: "DFM & Scale",
-    description: "Design for Manufacturing services to ensure your product is ready for mass production assembly lines."
   }
 ];
 

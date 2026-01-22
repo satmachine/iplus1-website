@@ -41,11 +41,11 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="hero-badge-container">
-            <span className="hero-badge">Design & Engineering</span>
+            <span className="hero-badge">Electronics Design & Engineering</span>
           </div>
-          <h1>Beyond the <br/>First <span className="text-highlight">Iteration.</span></h1>
+          <h1>From Prototype to <span className="text-highlight">Production.</span></h1>
           <p>
-            Complex hardware demands more than just a prototype. We engineer functional solutions at the intersection of electronics, firmware, and mechanical precision.
+            We design electronics with manufacturing reality in mind. In-house rapid prototyping, trusted partners across Australia, China, and Taiwan. One team sees your product from concept to warehouse.
           </p>
           <div className="hero-actions">
             <a href="#booking" className="btn-primary" onClick={scrollToBooking}>Start Your Project</a>
