@@ -41,7 +41,7 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="hero-badge-container">
-            <span className="hero-badge">Industrial Design & Engineering</span>
+            <span className="hero-badge">Design & Engineering</span>
           </div>
           <h1>Beyond the <br/>First <span className="text-highlight">Iteration.</span></h1>
           <p>
