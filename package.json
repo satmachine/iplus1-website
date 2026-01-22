@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && cp -r dist docs && cp CNAME docs/",
+    "build": "tsc && vite build && rm -rf docs && mv dist docs && cp CNAME docs/",
     "preview": "vite preview"
   },
   "dependencies": {
