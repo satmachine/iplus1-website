@@ -1,36 +1,46 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from '../../components/Logo';
+import { scrollToId } from '../../utils/scroll';
+import { Menu, X } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = ({ scrolled }: { scrolled: boolean }) => {
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    scrollToId(id);
+    setMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
       <div className="container nav-content">
-        <div className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ cursor: 'pointer' }}>
+        <a href="#home" className="nav-brand" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
           <Logo size={32} />
           <span className="brand-text">i plus 1</span>
-        </div>
-        <div className="nav-links">
-          <a href="#services" onClick={(e) => scrollToSection(e, 'services')}>Services</a>
-          <a href="#booking" className="nav-cta" onClick={(e) => scrollToSection(e, 'booking')}>Free Session</a>
+        </a>
+
+        <button
+          className="mobile-menu-btn"
+          onClick={toggleMobileMenu}
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileMenuOpen}
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        <div className={`nav-links ${mobileMenuOpen ? 'nav-links-open' : ''}`}>
+          <a href="#services" onClick={(e) => handleNavClick(e, 'services')}>Services</a>
+          <a href="#process" onClick={(e) => handleNavClick(e, 'process')}>Process</a>
+          <a href="#network" onClick={(e) => handleNavClick(e, 'network')}>Network</a>
+          <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
+          <a href="#contact" className="nav-cta" onClick={(e) => handleNavClick(e, 'contact')}>Start Your Project</a>
         </div>
       </div>
     </nav>

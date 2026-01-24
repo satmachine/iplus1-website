@@ -20,35 +20,57 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 40px 60px;
-  opacity: 0.7;
+  gap: 16px;
 }
 
-.client-logo-placeholder {
+.client-card {
   display: flex;
   align-items: center;
-  justify-content: center;
-  filter: grayscale(1);
+  gap: 12px;
+  background: var(--surface-gray);
+  padding: 12px 20px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   transition: var(--transition);
 }
 
-.client-logo-placeholder:hover {
-  filter: grayscale(0);
-  opacity: 1;
+.client-card:hover {
+  border-color: rgba(255, 204, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.client-initials {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 204, 0, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--primary-yellow);
 }
 
 .client-name {
-  font-weight: 700;
-  font-size: 1.2rem;
+  font-weight: 600;
+  font-size: 0.95rem;
   color: #fff;
-  letter-spacing: -0.02em;
 }
 
 @media (max-width: 768px) {
   .trusted-grid {
-    gap: 30px;
+    gap: 12px;
+  }
+  .client-card {
+    padding: 10px 16px;
+  }
+  .client-initials {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
   }
   .client-name {
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 }

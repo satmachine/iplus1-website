@@ -3,8 +3,12 @@ import React from 'react';
 import './TrustedBy.css';
 
 const clients = [
-  "GoFar", "Onyx Connect", "Code Bullet", 
-  "Up and Atom", "Vloggi", "Aus Home", "Project JDM"
+  { initials: "GF", name: "GoFar" },
+  { initials: "OC", name: "Onyx Connect" },
+  { initials: "CB", name: "Code Bullet" },
+  { initials: "UA", name: "Up and Atom" },
+  { initials: "VL", name: "Vloggi" },
+  { initials: "JD", name: "Project JDM" }
 ];
 
 const TrustedBy = () => {
@@ -14,8 +18,9 @@ const TrustedBy = () => {
         <p className="trusted-label">Trusted by industry leaders and visionaries</p>
         <div className="trusted-grid">
           {clients.map((client) => (
-            <div key={client} className="client-logo-placeholder">
-              <span className="client-name">{client}</span>
+            <div key={client.name} className="client-card">
+              <div className="client-initials">{client.initials}</div>
+              <span className="client-name">{client.name}</span>
             </div>
           ))}
         </div>

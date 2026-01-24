@@ -5,10 +5,49 @@
   --surface-gray: #111111;
   --text-dim: #a0a0a0;
   --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Accent colors */
+  --accent-cyan: #22d3ee;
+  --accent-pink: #ec4899;
+  --accent-green: #22c55e;
+  --accent-orange: #f97316;
+  --accent-purple: #a855f7;
+
+  /* Icon backgrounds */
+  --icon-bg-yellow: rgba(255, 204, 0, 0.15);
+  --icon-bg-cyan: rgba(34, 211, 238, 0.15);
+  --icon-bg-pink: rgba(236, 72, 153, 0.15);
+  --icon-bg-green: rgba(34, 197, 94, 0.15);
+  --icon-bg-orange: rgba(249, 115, 22, 0.15);
+  --icon-bg-purple: rgba(168, 85, 247, 0.15);
 }
 
 * {
   box-sizing: border-box;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--primary-yellow);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 1001;
+  padding: 0.75rem 1.25rem;
+  background: var(--primary-yellow);
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
 }
 
 html {
@@ -20,6 +59,7 @@ body {
 }
 
 .app-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

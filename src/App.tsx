@@ -1,13 +1,15 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Navbar from './features/navigation/Navbar';
 import Hero from './features/hero/Hero';
 import TrustedBy from './features/trust/TrustedClients';
-import Services from './features/services/Services';
-import SupplyChain from './features/supply-chain/SupplyChain';
-import Booking from './features/booking/Booking';
-import Footer from './features/footer/Footer';
 import './App.css';
+
+const Services = lazy(() => import('./features/services/Services'));
+const Process = lazy(() => import('./features/process/Process'));
+const SupplyChain = lazy(() => import('./features/supply-chain/SupplyChain'));
+const Booking = lazy(() => import('./features/booking/Booking'));
+const Footer = lazy(() => import('./features/footer/Footer'));
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -22,19 +24,23 @@ function App() {
 
   return (
     <div className="app-container">
+      <a href="#main" className="skip-link">Skip to main content</a>
       <Navbar scrolled={scrolled} />
-      <main>
+      <main id="main">
         <section id="home">
           <Hero />
         </section>
         <TrustedBy />
-        <section id="services">
+        <Suspense fallback={<div style={{ minHeight: 80 }} aria-hidden="true" />}>
           <Services />
-        </section>
-        <SupplyChain />
-        <Booking />
+          <Process />
+          <SupplyChain />
+          <Booking />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={<div style={{ minHeight: 60 }} aria-hidden="true" />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

@@ -31,7 +31,7 @@
 
 .service-card {
   background: #000;
-  padding: 40px;
+  padding: 32px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: var(--transition);
@@ -44,20 +44,96 @@
   border-color: rgba(255, 204, 0, 0.3);
 }
 
+/* Colored icon backgrounds */
 .service-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.service-icon--yellow {
+  background: var(--icon-bg-yellow);
   color: var(--primary-yellow);
-  margin-bottom: 24px;
+}
+
+.service-icon--cyan {
+  background: var(--icon-bg-cyan);
+  color: var(--accent-cyan);
+}
+
+.service-icon--pink {
+  background: var(--icon-bg-pink);
+  color: var(--accent-pink);
+}
+
+.service-icon--green {
+  background: var(--icon-bg-green);
+  color: var(--accent-green);
+}
+
+.service-icon--orange {
+  background: var(--icon-bg-orange);
+  color: var(--accent-orange);
+}
+
+.service-icon--purple {
+  background: var(--icon-bg-purple);
+  color: var(--accent-purple);
 }
 
 .service-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 16px;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
 }
 
 .service-card p {
   color: var(--text-dim);
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.service-tag {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-dim);
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.services-cta {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.services-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary-yellow);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.services-link:hover {
+  gap: 12px;
+}
+
+.services-link svg {
+  transition: var(--transition);
 }
 
 @media (max-width: 768px) {
@@ -66,5 +142,8 @@
   }
   .services-grid {
     grid-template-columns: 1fr;
+  }
+  .service-card {
+    padding: 24px;
   }
 }

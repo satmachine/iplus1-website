@@ -1,94 +1,102 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Cpu, Zap, Image } from 'lucide-react';
 import './HardwareAnimation.css';
 
 const HardwareAnimation = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const floatTransition = shouldReduceMotion
+    ? { duration: 0 }
+    : { duration: 3, repeat: Infinity, ease: 'easeInOut' };
+
+  const pulseTransition = shouldReduceMotion
+    ? { duration: 0 }
+    : { duration: 2, repeat: Infinity, ease: 'easeInOut' };
+
   return (
     <div className="hardware-viz-container">
-      {/* Schematic Background Lines */}
-      <svg className="schematic-lines" viewBox="0 0 400 400">
-        <motion.path 
-          d="M 50 200 L 150 200 M 250 200 L 350 200 M 200 50 L 200 150 M 200 250 L 200 350"
-          stroke="rgba(255, 204, 0, 0.15)"
-          strokeWidth="1"
-          fill="none"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-        />
-        <circle cx="200" cy="200" r="180" stroke="rgba(255, 204, 0, 0.05)" fill="none" strokeDasharray="4 4" />
+      {/* Dotted Connection Lines */}
+      <svg className="connection-lines" viewBox="0 0 400 400">
+        <line x1="100" y1="100" x2="200" y2="200" className="dotted-line" />
+        <line x1="300" y1="100" x2="200" y2="200" className="dotted-line" />
+        <line x1="100" y1="300" x2="200" y2="200" className="dotted-line" />
+        <line x1="300" y1="300" x2="200" y2="200" className="dotted-line" />
+        <circle cx="100" cy="100" r="3" fill="var(--primary-yellow)" opacity="0.6" />
+        <circle cx="300" cy="100" r="3" fill="var(--primary-yellow)" opacity="0.6" />
+        <circle cx="100" cy="300" r="3" fill="var(--primary-yellow)" opacity="0.6" />
+        <circle cx="300" cy="300" r="3" fill="var(--primary-yellow)" opacity="0.6" />
       </svg>
 
-      {/* The Core: Iterative Concept */}
-      <div className="iteration-stack">
-        {/* Shadow/Previous Iteration */}
-        <motion.div 
-          className="iteration-layer layer-back"
-          animate={{ 
-            opacity: [0.2, 0.5, 0.2],
-            scale: [0.9, 0.95, 0.9],
-            rotate: -5
-          }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        />
-        
-        {/* Professional Core */}
-        <div className="main-iteration-module">
-          <div className="module-content">
-            <div className="module-grid"></div>
-            <div className="module-header">
-              <div className="dot red"></div>
-              <div className="dot yellow"></div>
-            </div>
-            <div className="module-label">v.04 ALPHA</div>
-            <div className="module-center">
-              <div className="pulsing-core"></div>
-              <span className="i-plus-one-text">i+1</span>
-            </div>
-            <div className="module-footer">
-              <div className="barcode"></div>
-              <div className="serial">SN-02449-Syd</div>
-            </div>
-          </div>
-          
-          {/* Floating Components (Representing assembly) */}
-          <motion.div 
-            className="floating-chip chip-1"
-            animate={{ y: [0, -15, 0], x: [0, 5, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div className="chip-pin"></div>
-            <div className="chip-body">MCU</div>
-          </motion.div>
+      {/* Icon Grid */}
+      <div className="icon-grid">
+        <motion.div
+          className="icon-square"
+          animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
+          transition={{ ...floatTransition, delay: 0 }}
+        >
+          <Cpu size={24} />
+        </motion.div>
+        <motion.div
+          className="icon-square"
+          animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
+          transition={{ ...floatTransition, delay: 0.3 }}
+        >
+          <Zap size={24} />
+        </motion.div>
+        <motion.div
+          className="icon-square"
+          animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
+          transition={{ ...floatTransition, delay: 0.6 }}
+        >
+          <Image size={24} />
+        </motion.div>
+      </div>
 
-          <motion.div 
-            className="floating-chip chip-2"
-            animate={{ y: [0, 12, 0], x: [0, -8, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-          >
-            <div className="chip-body">RF</div>
-          </motion.div>
+      {/* Main Module */}
+      <div className="main-iteration-module">
+        <div className="module-content">
+          <div className="module-grid"></div>
+          <div className="module-header">
+            <div className="dot red"></div>
+            <div className="dot yellow"></div>
+          </div>
+          <div className="module-label">v.04 ALPHA</div>
+          <div className="module-center">
+            <motion.div
+              className="pulsing-core"
+              animate={shouldReduceMotion ? {} : { scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+              transition={pulseTransition}
+            />
+            <span className="i-plus-one-text">i+1</span>
+          </div>
+          <div className="module-footer">
+            <div className="barcode"></div>
+            <div className="serial">SN-02449-Syd</div>
+          </div>
         </div>
       </div>
 
-      {/* Data Transmission Rings */}
-      <div className="data-rings">
-        {[1, 2, 3].map((i) => (
-          <motion.div 
-            key={i}
-            className="data-ring"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1.5, opacity: [0, 0.5, 0] }}
-            transition={{ 
-              duration: 3, 
-              repeat: Infinity, 
-              delay: i * 1,
-              ease: "easeOut" 
-            }}
-          />
-        ))}
-      </div>
+      {/* Circuit Traces */}
+      <svg className="circuit-traces" viewBox="0 0 400 400">
+        <path
+          d="M 50 200 L 80 200 L 100 180 L 140 180"
+          className="trace-path"
+        />
+        <path
+          d="M 260 180 L 300 180 L 320 200 L 350 200"
+          className="trace-path"
+        />
+        <path
+          d="M 200 50 L 200 80 L 180 100 L 180 140"
+          className="trace-path"
+        />
+        <path
+          d="M 180 260 L 180 300 L 200 320 L 200 350"
+          className="trace-path"
+        />
+      </svg>
     </div>
   );
 };

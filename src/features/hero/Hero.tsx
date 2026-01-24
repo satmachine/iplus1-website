@@ -1,30 +1,14 @@
 
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import HardwareAnimation from './HardwareAnimation';
+import { scrollToId } from '../../utils/scroll';
 import './Hero.css';
 
 const Hero = () => {
-  const scrollToBooking = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const element = document.getElementById('booking');
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const scrollToServices = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const element = document.getElementById('services');
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
+    scrollToId(id);
   };
 
   return (
@@ -32,39 +16,44 @@ const Hero = () => {
       <div className="hero-background-effects">
         <div className="grid-overlay"></div>
         <div className="hero-gradient"></div>
+        <svg className="network-lines" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(255, 204, 0, 0.3)" />
+              <stop offset="100%" stopColor="rgba(255, 204, 0, 0)" />
+            </linearGradient>
+          </defs>
+          <path d="M0 400 Q300 350, 600 400 T1200 350" stroke="url(#goldGradient)" strokeWidth="1" fill="none" />
+          <path d="M0 500 Q400 450, 800 500 T1200 450" stroke="url(#goldGradient)" strokeWidth="1" fill="none" />
+          <circle cx="200" cy="380" r="4" fill="var(--primary-yellow)" opacity="0.5" />
+          <circle cx="600" cy="400" r="3" fill="var(--primary-yellow)" opacity="0.4" />
+          <circle cx="1000" cy="360" r="5" fill="var(--primary-yellow)" opacity="0.3" />
+        </svg>
       </div>
       <div className="container hero-container">
-        <motion.div 
+        <motion.div
           className="hero-content"
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="hero-badge-container">
-            <span className="hero-badge">Electronics Design & Engineering</span>
+            <span className="hero-badge">
+              <span className="badge-dot"></span>
+              Sydney-Based Engineering Studio
+            </span>
           </div>
-          <h1>From Prototype to <span className="text-highlight">Production.</span></h1>
+          <h1>From <span className="text-highlight">Prototype</span> to Production.</h1>
           <p>
             We design electronics with manufacturing reality in mind. In-house rapid prototyping, trusted partners across Australia, China, and Taiwan. One team sees your product from concept to warehouse.
           </p>
           <div className="hero-actions">
-            <a href="#booking" className="btn-primary" onClick={scrollToBooking}>Start Your Project</a>
-            <a href="#services" className="btn-secondary" onClick={scrollToServices}>Our Capabilities</a>
-          </div>
-          
-          <div className="hero-stats">
-            <div className="stat-item">
-              <span className="stat-value">Sydney</span>
-              <span className="stat-label">Based Studio</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">FDM/SLA</span>
-              <span className="stat-label">In-House Lab</span>
-            </div>
+            <a href="#contact" className="btn-primary" onClick={(e) => handleClick(e, 'contact')}>Start Your Project</a>
+            <a href="#services" className="btn-secondary" onClick={(e) => handleClick(e, 'services')}>Our Capabilities</a>
           </div>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="hero-visual"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
